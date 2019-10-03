@@ -79,7 +79,9 @@ class Diff(Command):
         diff = diff_info['diff']
 
         if diff:
+            # remove BOM symbol (\ufeff) from diff because is causes exception: 'charmap' codec can't encode character '\ufeff' in position X: character maps to <undefined>
+            diff = diff.replace(b'\xef\xbb\xbf', b'')
             if six.PY2:
                 print(diff)
             else:
-                print(diff.decode('utf-8'))
+                print(diff.decode(encoding='utf-8'))
