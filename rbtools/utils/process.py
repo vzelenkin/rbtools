@@ -140,10 +140,12 @@ def execute(command,
     if sys.platform.startswith('win'):
         # Convert all environment variables to byte strings, so that subprocess
         # doesn't blow up on Windows.
-        new_env = dict(
-            (six.binary_type(key), six.binary_type(value))
-            for key, value in six.iteritems(new_env)
-        )
+
+        # TODO: commened out because of leads to exception 'string argument without an encoding' when calling bytes('anystring') in the 'six' module
+        #new_env = dict(
+        #    (six.binary_type(key), six.binary_type(value))
+        #    for key, value in six.iteritems(new_env)
+        #)
 
         p = subprocess.Popen(command,
                              stdin=subprocess.PIPE,
